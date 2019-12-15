@@ -20,7 +20,7 @@ public class AuthProviderController {
 
     @GetMapping("/callback")
     public String callBack(@RequestParam("code") String code, HttpServletRequest httpServletRequest, Model model) {
-        // 方式浏览器地址栏恶意输入callback?code=
+        // 防止浏览器地址栏恶意输入callback?code=
         if(httpServletRequest.getSession().getAttribute("user") != null){
             return "redirect:";
         }
