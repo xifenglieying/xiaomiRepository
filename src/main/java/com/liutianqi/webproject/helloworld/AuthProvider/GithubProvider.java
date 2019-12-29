@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.liutianqi.webproject.helloworld.dto.AccessToken;
 import com.liutianqi.webproject.helloworld.dto.GithubUser;
 import okhttp3.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -14,11 +15,20 @@ public class GithubProvider {
 
     private static final String url = "https://github.com/login/oauth/access_token";
 
+    @Value("${github.client.id}")
+    private String clientId;
+
+    @Value("${github.client.secret}")
+    private String clientSecret;
+
+    @Value("${github.client.uri}")
+    private String clientUri;
+
     public String getAccessToken(final String code) {
         AccessToken accessToken = new AccessToken();
-        accessToken.setClient_id("ef6a9d39921d77bd3961");
-        accessToken.setClient_secret("af30c906ca22314662bb3ba32d7f25ab3fdad902");
-        accessToken.setRedirect_uri("http://localhost:8087/callback");
+        accessToken.setClient_id(clientId);
+        accessToken.setClient_secret(clientSecret);
+        accessToken.setRedirect_uri(clientUri);
         accessToken.setCode(code);
 
         MediaType mediaType = MediaType.get("application/json; charset=utf-8");
